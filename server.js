@@ -1,16 +1,19 @@
-const express = require('express')
+const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const api = require('./routes/api')
-const html = require('./routes/html')
+const api = require("./routes/apiRoute");
+const html = require("./routes/htmlRoute");
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-app.use('/api', api)
-app.use('/', html)
+app.use("/api", api);
+app.use("/", html);
 
- app.get('/', (req, res) =>
-    res.sendFile(path.join(__dirname, '/public/index.html'))
+app.get("/", (req, res) =>
+  res.sendFile(path.join(__dirname, "/public/index.html"))
 );
-app.listen(PORT, () => console.log(`App server hosted on ${PORT}`))
+
+app.listen(PORT, () => {
+  console.log(`App server hosted on ${PORT}`);
+});
