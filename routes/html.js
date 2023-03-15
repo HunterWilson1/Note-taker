@@ -1,5 +1,5 @@
 const path = require("path");
-const router = require("express").router;
+const router = require("express").Router();
 
 //first route is defined at root and sends the index when GET request is sent
 router.get("/", (req, res) => {

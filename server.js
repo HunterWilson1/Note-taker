@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const api = require("./routes/apiRoute");
-const html = require("./routes/htmlRoute");
+const api = require("./routes/api");
+const html = require("./routes/html");
 
 app.use(express.static("public"));
 
