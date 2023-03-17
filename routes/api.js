@@ -1,48 +1,52 @@
 const router = require("express").Router();
-const path = require('path');
-const fs = require('fs');
-const {v4: uuidv4} = require('uuid');
-const noteDb = require('../db/db.json')
+const path = require("path");
+const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
+const noteDb = require("../db/db.json");
 
 
+//get request to /notes
+router.get('/notes', (req, res) => {
+  res.json(noteDb);
+});
+
+//loops through array to find note with specific id
 router.get("/notes", (req, res) => {
-      res.json(notes);
+  for (let i = 0; i < noteDb.length; i++) {
+    if (noteDb[i].id === req.params.id) {
+      res.json(noteDb[i]);
+    }
+  }
 });
 
-
-/* //router endpooint
-router.post("/notes", (req, res) => {
-  data
-    .addNote(req.body)
-    .then((note) => res.json(note))
-    .catch((err) => res.status(500).json(err));
-});
- */
-
+//makes new object with title, text, and id. Then adds to noteDb array. then writes it to db.json file
 router.post('/notes', (req, res) => {
   const newNote = {
     "title": req.body.title,
-    "text": req.text.title,
+    "text": req.body.text,
     "id": uuidv4()
   }
-  note.push(newNote)
-  fs.writeFile(
-    path.join(__dirname, '../db/db.json'),
+  noteDb.push(newNote);
+  fs.writeFileSync(
+    path.join(__dirname, "../db/db.json"),
     JSON.stringify(noteDb, null, 2)
   )
-  res.json(noteDb)
-})
-router.delete("/notes/:id", (req, res) => {
-  for (let i = 0; i <  note.length; i++) {
+  res.json(noteDb);
+});
+
+
+//loop through array for specific id and if found then removed
+router.delete('/notes/:id', (req, res) => {
+  for (let i = 0; i < noteDb.length; i++) {
     if (noteDb[i].id === req.params.id) {
-      noteDb.splice(i, 1)
+      noteDb.splice(i, 1);
     }
   }
-  fs.writeFile(
-    path.join(__dirname, '../db/db.json'),
+  fs.writeFileSync(
+    path.join(__dirname, "../db/db.json"),
     JSON.stringify(noteDb, null, 2)
-  )
-  res.json(noteDb)
+  );
+  res.json(noteDb);
 });
 
 module.exports = router;
