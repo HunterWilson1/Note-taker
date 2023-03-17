@@ -9,6 +9,7 @@ router.get("/notes", (req, res) => {
       res.json(notes);
 });
 
+
 /* //router endpooint
 router.post("/notes", (req, res) => {
   data
@@ -17,6 +18,20 @@ router.post("/notes", (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
  */
+
+router.post('/notes', (req, res) => {
+  const newNote = {
+    "title": req.body.title,
+    "text": req.text.title,
+    "id": uuidv4()
+  }
+  note.push(newNote)
+  fs.writeFile(
+    path.join(__dirname, '../db/db.json'),
+    JSON.stringify(noteDb, null, 2)
+  )
+  res.json(noteDb)
+})
 router.delete("/notes/:id", (req, res) => {
   for (let i = 0; i <  note.length; i++) {
     if (noteDb[i].id === req.params.id) {
